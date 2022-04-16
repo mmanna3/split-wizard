@@ -1,12 +1,12 @@
-import ListaIntegrantes from './ListaIntegrantes'
+import ListaIntegrantes from './ListaIntegrantes';
 import './App.css';
-
-
 
 function App() {
   const estilos = {
-    contenedor: { marginLeft: "1em" }
-  }
+    contenedor: {
+      marginLeft: '1em',
+    },
+  };
 
   return (
     <div style={estilos.contenedor}>
