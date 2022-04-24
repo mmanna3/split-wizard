@@ -48,15 +48,11 @@ export function calcular(integrantes: IntegranteDelGrupo[]): Deudor[] {
   const tienenQueCobrarAlgo = calcularAQuienesHayQueDarlePlata(integrantes, cuantoPoneCadaUno);
   const tienenQuePagarAlgo = calcularQuienesFaltaPonerPlata(integrantes, cuantoPoneCadaUno);
 
-  // const resultado = [];
-
   tienenQueCobrarAlgo.forEach((acreedor) => {
     let cuantoLeFaltaAlAcreedor = acreedor.cuantoTieneQueCobrar;
 
-    // while (cuantoLeFaltaAlAcreedor > 0) {
     for (let i = 0; i < tienenQuePagarAlgo.length; i++) {
-      // Que pasa cuando la variable de abajo es negativa
-      if (tienenQuePagarAlgo[i].cuantoDebeEnTotal > 0) {
+      if (tienenQuePagarAlgo[i].cuantoDebeEnTotal > 0 && cuantoLeFaltaAlAcreedor > 0) {
         const debeMenosDeLoQueTieneQueCobrarElAcreedor = cuantoLeFaltaAlAcreedor
         - tienenQuePagarAlgo[i].cuantoDebeEnTotal >= 0;
 
@@ -70,7 +66,7 @@ export function calcular(integrantes: IntegranteDelGrupo[]): Deudor[] {
           );
           cuantoLeFaltaAlAcreedor -= cuantoPagaElDeudor;
           tienenQuePagarAlgo[i].cuantoDebeEnTotal -= cuantoPagaElDeudor;
-        } else { // si debe mas de lo que tiene que cobrar el acreedor
+        } else {
           const cuantoPagaElDeudor = cuantoLeFaltaAlAcreedor;
           tienenQuePagarAlgo[i].aQuienesLeDebe.push(
             {
@@ -78,13 +74,11 @@ export function calcular(integrantes: IntegranteDelGrupo[]): Deudor[] {
               cuantoTieneQueCobrar: cuantoPagaElDeudor
             }
           );
-          cuantoLeFaltaAlAcreedor -= cuantoPagaElDeudor; // O sea que al acreedor ya no le falta nada (o sea =0)
+          cuantoLeFaltaAlAcreedor -= cuantoPagaElDeudor;
           tienenQuePagarAlgo[i].cuantoDebeEnTotal -= cuantoPagaElDeudor;
         }
       }
     }
-
-    // }
   });
 
   return tienenQuePagarAlgo;

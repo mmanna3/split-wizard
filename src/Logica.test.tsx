@@ -126,3 +126,32 @@ test("Integrantes2: Quienes pusieron menos de 700 deben poner plata", () => {
   const deudores = calcularQuienesFaltaPonerPlata(integrantes2, 700);
   expect(deudores).toEqual(deudoresEsperados);
 });
+
+test.skip("7 integrantes, 2 acreedores, 5 deudores", () => {
+  const cuatroIntegrantes: IntegranteDelGrupo[] = [
+    { nombre: "Maxi", plataQuePuso: 0 },
+    { nombre: "Bufi", plataQuePuso: 0 },
+    { nombre: "Ferra", plataQuePuso: 700 },
+    { nombre: "Gian", plataQuePuso: 20 },
+    { nombre: "Cami", plataQuePuso: 0 },
+    { nombre: "Mati", plataQuePuso: 0 },
+    { nombre: "Marquitos", plataQuePuso: 3400 }
+  ];
+
+  const deudoresEsperados: Deudor[] = [
+    {
+      nombre: "C",
+      cuantoDebeEnTotal: 0,
+      aQuienesLeDebe: [{ nombre: "A", cuantoTieneQueCobrar: 600 }],
+    },
+    {
+      nombre: "D",
+      cuantoDebeEnTotal: 0,
+      aQuienesLeDebe: [{ nombre: "A", cuantoTieneQueCobrar: 700 }],
+    },
+  ];
+
+  const deudores = calcular(cuatroIntegrantes);
+  console.log(JSON.stringify(deudores));
+  expect(deudores).toEqual(deudoresEsperados);
+});
