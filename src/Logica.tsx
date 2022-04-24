@@ -56,30 +56,34 @@ export function calcular(integrantes: IntegranteDelGrupo[]): Deudor[] {
     // while (cuantoLeFaltaAlAcreedor > 0) {
     for (let i = 0; i < tienenQuePagarAlgo.length; i++) {
       // Que pasa cuando la variable de abajo es negativa
-      const debeMenosDeLoQueTieneQueCobrarElAcreedor = cuantoLeFaltaAlAcreedor
-      - tienenQuePagarAlgo[i].cuantoDebeEnTotal >= 0;
+      if (tienenQuePagarAlgo[i].cuantoDebeEnTotal > 0) {
+        const debeMenosDeLoQueTieneQueCobrarElAcreedor = cuantoLeFaltaAlAcreedor
+        - tienenQuePagarAlgo[i].cuantoDebeEnTotal >= 0;
 
-      if (debeMenosDeLoQueTieneQueCobrarElAcreedor) {
-        const cuantoPagaElDeudor = tienenQuePagarAlgo[i].cuantoDebeEnTotal;
-        tienenQuePagarAlgo[i].aQuienesLeDebe.push(
-          {
-            nombre: acreedor.nombre,
-            cuantoTieneQueCobrar: cuantoPagaElDeudor
-          }
-        );
-        cuantoLeFaltaAlAcreedor -= cuantoPagaElDeudor;
-      } else { // si debe mas de lo que tiene que cobrar el acreedor
-        const cuantoPagaElDeudor = cuantoLeFaltaAlAcreedor;
-        tienenQuePagarAlgo[i].aQuienesLeDebe.push(
-          {
-            nombre: acreedor.nombre,
-            cuantoTieneQueCobrar: cuantoPagaElDeudor
-          }
-        );
-        cuantoLeFaltaAlAcreedor -= cuantoPagaElDeudor; // O sea que al acreedor ya no le falta nada (o sea =0)
-        tienenQuePagarAlgo[i].cuantoDebeEnTotal -= cuantoPagaElDeudor;
+        if (debeMenosDeLoQueTieneQueCobrarElAcreedor) {
+          const cuantoPagaElDeudor = tienenQuePagarAlgo[i].cuantoDebeEnTotal;
+          tienenQuePagarAlgo[i].aQuienesLeDebe.push(
+            {
+              nombre: acreedor.nombre,
+              cuantoTieneQueCobrar: cuantoPagaElDeudor
+            }
+          );
+          cuantoLeFaltaAlAcreedor -= cuantoPagaElDeudor;
+          tienenQuePagarAlgo[i].cuantoDebeEnTotal -= cuantoPagaElDeudor;
+        } else { // si debe mas de lo que tiene que cobrar el acreedor
+          const cuantoPagaElDeudor = cuantoLeFaltaAlAcreedor;
+          tienenQuePagarAlgo[i].aQuienesLeDebe.push(
+            {
+              nombre: acreedor.nombre,
+              cuantoTieneQueCobrar: cuantoPagaElDeudor
+            }
+          );
+          cuantoLeFaltaAlAcreedor -= cuantoPagaElDeudor; // O sea que al acreedor ya no le falta nada (o sea =0)
+          tienenQuePagarAlgo[i].cuantoDebeEnTotal -= cuantoPagaElDeudor;
+        }
       }
     }
+
     // }
   });
 
