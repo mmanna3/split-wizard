@@ -10,6 +10,7 @@ export interface Acreedor {
 
 export interface Deudor {
   nombre: string;
+  cuantoDebeEnTotal: number,
   aQuienesLeDebe: Acreedor[];
 }
 
@@ -34,7 +35,11 @@ export function calcularAQuienesHayQueDarlePlata(integrantes: IntegranteDelGrupo
 export function calcularQuienesFaltaPonerPlata(integrantes: IntegranteDelGrupo[], cuantoPoneCadaUno: number): Deudor[] {
   const resultado = integrantes.filter((integrante) => integrante.plataQuePuso < cuantoPoneCadaUno);
 
-  return resultado.map((integrante) => ({ nombre: integrante.nombre, aQuienesLeDebe: [] }));
+  return resultado.map((integrante) => ({
+    nombre: integrante.nombre,
+    cuantoDebeEnTotal: cuantoPoneCadaUno - integrante.plataQuePuso,
+    aQuienesLeDebe: []
+  }));
 }
 
 export function calcular(integrantes: IntegranteDelGrupo[]): Deudor[] {

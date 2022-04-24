@@ -16,14 +16,15 @@ const integrantes: IntegranteDelGrupo[] = [
 
 test.skip("3 integrantes, 1 solo deudor", () => {
   const deudoresEsperados: Deudor[] = [
-    { nombre: "Ferra", aQuienesLeDebe: [] },
     {
       nombre: "Manita",
+      cuantoDebeEnTotal: 100,
       aQuienesLeDebe: [{ nombre: "Ferra", cuantoTieneQueCobrar: 100 }],
     },
     {
       nombre: "Cami",
-      aQuienesLeDebe: [{ nombre: "Ferra", cuantoTieneQueCobrar: 500 }],
+      cuantoDebeEnTotal: 600,
+      aQuienesLeDebe: [{ nombre: "Ferra", cuantoTieneQueCobrar: 600 }],
     },
   ];
 
@@ -49,8 +50,8 @@ test("Quienes pusieron mas de 600 deben recibir plata", () => {
 
 test("Quienes pusieron menos de 600 deben poner plata", () => {
   const deudoresEsperados: Deudor[] = [
-    { nombre: "Manita", aQuienesLeDebe: [] },
-    { nombre: "Cami", aQuienesLeDebe: [] },
+    { nombre: "Manita", cuantoDebeEnTotal: 100, aQuienesLeDebe: [] },
+    { nombre: "Cami", cuantoDebeEnTotal: 600, aQuienesLeDebe: [] },
   ];
 
   const deudores = calcularQuienesFaltaPonerPlata(integrantes, 600);
