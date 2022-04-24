@@ -2,6 +2,7 @@ import {
   calcular,
   calcularTotalGastado,
   calcularAQuienesHayQueDarlePlata,
+  calcularQuienesFaltaPonerPlata,
   IntegranteDelGrupo,
   Deudor,
   Acreedor,
@@ -41,4 +42,14 @@ test("Quienes pusieron mas de 600 deben recibir plata", () => {
 
   const acreedores = calcularAQuienesHayQueDarlePlata(integrantes, 600);
   expect(acreedores).toEqual(acreedoresEsperados);
+});
+
+test("Quienes pusieron menos de 600 deben poner plata", () => {
+  const deudoresEsperados: Deudor[] = [
+    { nombre: "Manita", aQuienesLeDebe: [] },
+    { nombre: "Cami", aQuienesLeDebe: [] },
+  ];
+
+  const deudores = calcularQuienesFaltaPonerPlata(integrantes, 600);
+  expect(deudores).toEqual(deudoresEsperados);
 });

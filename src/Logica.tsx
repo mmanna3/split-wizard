@@ -40,6 +40,20 @@ export function calcularAQuienesHayQueDarlePlata(
   }));
 }
 
+export function calcularQuienesFaltaPonerPlata(
+  integrantes: IntegranteDelGrupo[],
+  cuantoPoneCadaUno: number
+): Deudor[] {
+  const resultado = integrantes.filter(
+    (integrante) => integrante.plataQuePuso < cuantoPoneCadaUno
+  );
+
+  return resultado.map((integrante) => ({
+    nombre: integrante.nombre,
+    aQuienesLeDebe: [],
+  }));
+}
+
 export function calcular(integrantes: IntegranteDelGrupo[]): Deudor[] {
   const totalGastado = calcularTotalGastado(integrantes);
 
@@ -49,6 +63,11 @@ export function calcular(integrantes: IntegranteDelGrupo[]): Deudor[] {
   );
 
   const tienenQueCobrarAlgo: Acreedor[] = calcularAQuienesHayQueDarlePlata(
+    integrantes,
+    cuantoPoneCadaUno
+  );
+
+  const tienenQuePagarAlgo: Deudor[] = calcularQuienesFaltaPonerPlata(
     integrantes,
     cuantoPoneCadaUno
   );
