@@ -17,7 +17,10 @@ const integrantes: IntegranteDelGrupo[] = [
 test.skip("3 integrantes, 1 solo deudor", () => {
   const deudoresEsperados: Deudor[] = [
     { nombre: "Ferra", aQuienesLeDebe: [] },
-    { nombre: "Manita", aQuienesLeDebe: [] },
+    {
+      nombre: "Manita",
+      aQuienesLeDebe: [{ nombre: "Ferra", cuantoTieneQueCobrar: 100 }],
+    },
     {
       nombre: "Cami",
       aQuienesLeDebe: [{ nombre: "Ferra", cuantoTieneQueCobrar: 500 }],
