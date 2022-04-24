@@ -25,12 +25,12 @@ test("3 integrantes, 1 acreedor, 2 deudores", () => {
   const deudoresEsperados: Deudor[] = [
     {
       nombre: "Manita",
-      cuantoDebeEnTotal: 100,
+      cuantoDebeEnTotal: 0,
       aQuienesLeDebe: [{ nombre: "Ferra", cuantoTieneQueCobrar: 100 }],
     },
     {
       nombre: "Cami",
-      cuantoDebeEnTotal: 600,
+      cuantoDebeEnTotal: 0,
       aQuienesLeDebe: [{ nombre: "Ferra", cuantoTieneQueCobrar: 600 }],
     },
   ];
@@ -50,12 +50,12 @@ test("4 integrantes, 1 acreedor, 2 deudores, uno hecho", () => {
   const deudoresEsperados: Deudor[] = [
     {
       nombre: "C",
-      cuantoDebeEnTotal: 600,
+      cuantoDebeEnTotal: 0,
       aQuienesLeDebe: [{ nombre: "A", cuantoTieneQueCobrar: 600 }],
     },
     {
       nombre: "D",
-      cuantoDebeEnTotal: 700,
+      cuantoDebeEnTotal: 0,
       aQuienesLeDebe: [{ nombre: "A", cuantoTieneQueCobrar: 700 }],
     },
   ];
