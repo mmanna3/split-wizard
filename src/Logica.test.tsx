@@ -14,7 +14,7 @@ const integrantes: IntegranteDelGrupo[] = [
   { nombre: "Cami", plataQuePuso: 0 },
 ];
 
-test.skip("3 integrantes, 1 solo deudor", () => {
+test("3 integrantes, 1 acreedor, 2 deudores", () => {
   const deudoresEsperados: Deudor[] = [
     {
       nombre: "Manita",
@@ -29,7 +29,32 @@ test.skip("3 integrantes, 1 solo deudor", () => {
   ];
 
   const deudores = calcular(integrantes);
-  expect(deudores).toBe(deudoresEsperados);
+  expect(deudores).toEqual(deudoresEsperados);
+});
+
+test("4 integrantes, 1 acreedor, 2 deudores, uno hecho", () => {
+  const cuatroIntegrantes: IntegranteDelGrupo[] = [
+    { nombre: "A", plataQuePuso: 2000 },
+    { nombre: "B", plataQuePuso: 700 },
+    { nombre: "C", plataQuePuso: 100 },
+    { nombre: "D", plataQuePuso: 0 },
+  ];
+
+  const deudoresEsperados: Deudor[] = [
+    {
+      nombre: "C",
+      cuantoDebeEnTotal: 600,
+      aQuienesLeDebe: [{ nombre: "A", cuantoTieneQueCobrar: 600 }],
+    },
+    {
+      nombre: "D",
+      cuantoDebeEnTotal: 700,
+      aQuienesLeDebe: [{ nombre: "A", cuantoTieneQueCobrar: 700 }],
+    },
+  ];
+
+  const deudores = calcular(cuatroIntegrantes);
+  expect(deudores).toEqual(deudoresEsperados);
 });
 
 test("Suma correctamente el total gastado", () => {
