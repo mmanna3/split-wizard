@@ -1,21 +1,26 @@
 import {
   calcular,
   calcularTotalGastado,
+  calcularAQuienesHayQueDarlePlata,
   IntegranteDelGrupo,
-  Deudores,
+  Deudor,
+  Acreedor,
 } from "./Logica";
 
-test.skip("3 integrantes, 1 solo deudor", () => {
-  const integrantes: IntegranteDelGrupo[] = [
-    { nombre: "Ferra", plataQuePuso: 1000 },
-    { nombre: "Manita", plataQuePuso: 500 },
-    { nombre: "Cami", plataQuePuso: 0 },
-  ];
+const integrantes: IntegranteDelGrupo[] = [
+  { nombre: "Ferra", plataQuePuso: 1300 },
+  { nombre: "Manita", plataQuePuso: 500 },
+  { nombre: "Cami", plataQuePuso: 0 },
+];
 
-  const deudoresEsperados: Deudores[] = [
+test.skip("3 integrantes, 1 solo deudor", () => {
+  const deudoresEsperados: Deudor[] = [
     { nombre: "Ferra", aQuienesLeDebe: [] },
     { nombre: "Manita", aQuienesLeDebe: [] },
-    { nombre: "Cami", aQuienesLeDebe: [{ nombre: "Ferra", leDebe: 500 }] },
+    {
+      nombre: "Cami",
+      aQuienesLeDebe: [{ nombre: "Ferra", cuantoTieneQueCobrar: 500 }],
+    },
   ];
 
   const deudores = calcular(integrantes);
@@ -23,14 +28,17 @@ test.skip("3 integrantes, 1 solo deudor", () => {
 });
 
 test("Suma correctamente el total gastado", () => {
-  const integrantes: IntegranteDelGrupo[] = [
-    { nombre: "Ferra", plataQuePuso: 1000 },
-    { nombre: "Manita", plataQuePuso: 500 },
-    { nombre: "Cami", plataQuePuso: 0 },
-  ];
-
-  const totalGastadoEsperado = 1500;
+  const totalGastadoEsperado = 1800;
 
   const totalGastado = calcularTotalGastado(integrantes);
   expect(totalGastado).toBe(totalGastadoEsperado);
+});
+
+test("Quienes pusieron mas de 600 deben recibir plata", () => {
+  const acreedoresEsperados: Acreedor[] = [
+    { nombre: "Ferra", cuantoTieneQueCobrar: 700 },
+  ];
+
+  const acreedores = calcularAQuienesHayQueDarlePlata(integrantes, 600);
+  expect(acreedores).toEqual(acreedoresEsperados);
 });

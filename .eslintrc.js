@@ -31,5 +31,6 @@ module.exports = {
     "import/no-unresolved": 0,
     "comma-dangle": 0,
     "object-curly-newline": 0,
+    "max-len": ["error", { code: 110 }]
   },
 };
