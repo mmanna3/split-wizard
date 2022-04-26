@@ -1,6 +1,11 @@
 import { useState } from "react";
 import "./App.css";
 
+interface Integrante {
+  nombre: string;
+  cuantoPuso: number;
+}
+
 function ListaIntegrantes() {
   const estilos = {
     contenedor: {
@@ -23,18 +28,28 @@ function ListaIntegrantes() {
     },
   };
 
-  const [lista, setLista] = useState<string[]>([]);
-  const [nuevoIntegrante, setNuevoIntegrante] = useState("");
+  const [lista, setLista] = useState<Integrante[]>([]);
+  const [nombre, setNombre] = useState("");
+  const [cuantoPuso, setCuantoPuso] = useState(0);
 
   const agregarIntegrante = () => {
-    setLista((listaAnterior) => [...listaAnterior, nuevoIntegrante]);
+    setLista((listaAnterior) => [...listaAnterior, { nombre, cuantoPuso }]);
+    setNombre("");
+    setCuantoPuso(0);
   };
 
   return (
     <div style={estilos.contenedor}>
       <div>
         {lista.map((integrante) => (
-          <div>{integrante}</div>
+          <div>
+            <span style={{ marginRight: 10 }}>
+              {integrante.nombre}
+            </span>
+            <span>
+              {integrante.cuantoPuso}
+            </span>
+          </div>
         ))}
       </div>
       <div>
@@ -42,9 +57,16 @@ function ListaIntegrantes() {
           <input
             style={estilos.input}
             type="text"
-            value={nuevoIntegrante}
-            onChange={(event) => setNuevoIntegrante(event.target.value)}
+            value={nombre}
+            onChange={(event) => setNombre(event.target.value)}
             placeholder="Nombre. Ej: Gandalf"
+          />
+          <input
+            style={estilos.input}
+            type="number"
+            value={cuantoPuso}
+            onChange={(event) => setCuantoPuso(parseInt(event.target.value, 10))}
+            placeholder="Cuánto puso. Ej: 236"
           />
           <button
             type="button"
