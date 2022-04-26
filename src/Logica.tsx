@@ -51,6 +51,7 @@ export function calcular(integrantes: IntegranteDelGrupo[]): Deudor[] {
   tienenQueCobrarAlgo.forEach((acreedor) => {
     let cuantoLeFaltaAlAcreedor = acreedor.cuantoTieneQueCobrar;
 
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < tienenQuePagarAlgo.length; i++) {
       if (tienenQuePagarAlgo[i].cuantoDebeEnTotal > 0 && cuantoLeFaltaAlAcreedor > 0) {
         const debeMenosDeLoQueTieneQueCobrarElAcreedor = cuantoLeFaltaAlAcreedor

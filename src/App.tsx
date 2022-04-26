@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div style={estilos.contenedor}>
-      <h1 style={estilos.titulo}>Split Wizard</h1>
+      <h1 style={estilos.titulo}>El mago de la repartija</h1>
       <ListaIntegrantes />
     </div>
   );

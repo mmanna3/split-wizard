@@ -1,10 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-
-interface Integrante {
-  nombre: string;
-  cuantoPuso: number;
-}
+import { calcular, Deudor, IntegranteDelGrupo } from "./Logica";
 
 function ListaIntegrantes() {
   const estilos = {
@@ -28,14 +24,19 @@ function ListaIntegrantes() {
     },
   };
 
-  const [lista, setLista] = useState<Integrante[]>([]);
+  const [lista, setLista] = useState<IntegranteDelGrupo[]>([]);
   const [nombre, setNombre] = useState("");
-  const [cuantoPuso, setCuantoPuso] = useState(0);
+  const [plataQuePuso, setPlataQuePuso] = useState(0);
+  const [deudores, setDeudores] = useState<Deudor[]>([]);
 
   const agregarIntegrante = () => {
-    setLista((listaAnterior) => [...listaAnterior, { nombre, cuantoPuso }]);
+    setLista((listaAnterior) => [...listaAnterior, { nombre, plataQuePuso }]);
     setNombre("");
-    setCuantoPuso(0);
+    setPlataQuePuso(0);
+  };
+
+  const calcularLaRepartija = () => {
+    setDeudores(calcular(lista));
   };
 
   return (
@@ -47,7 +48,7 @@ function ListaIntegrantes() {
               {integrante.nombre}
             </span>
             <span>
-              {integrante.cuantoPuso}
+              {integrante.plataQuePuso}
             </span>
           </div>
         ))}
@@ -64,8 +65,8 @@ function ListaIntegrantes() {
           <input
             style={estilos.input}
             type="number"
-            value={cuantoPuso}
-            onChange={(event) => setCuantoPuso(parseInt(event.target.value, 10))}
+            value={plataQuePuso}
+            onChange={(event) => setPlataQuePuso(parseInt(event.target.value, 10))}
             placeholder="Cuánto puso. Ej: 236"
           />
           <button
@@ -75,6 +76,21 @@ function ListaIntegrantes() {
           >
             Agregar
           </button>
+        </div>
+        <button
+          type="button"
+          style={estilos.boton}
+          onClick={() => calcularLaRepartija()}
+        >
+          Hacer la repartija
+        </button>
+        <div>
+          {deudores.map((deudor) => (
+            <div>
+              {deudor.aQuienesLeDebe.map((acreedor) => (
+                <div>{`${deudor.nombre} le debe a ${acreedor.nombre} $${acreedor.cuantoTieneQueCobrar}`}</div>))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
