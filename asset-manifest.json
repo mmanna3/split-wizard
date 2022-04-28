@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/split-wizard/static/css/main.073c9b0a.css",
+    "main.js": "/split-wizard/static/js/main.cd9aa08e.js",
+    "static/js/787.7c74c654.chunk.js": "/split-wizard/static/js/787.7c74c654.chunk.js",
+    "index.html": "/split-wizard/index.html",
+    "main.073c9b0a.css.map": "/split-wizard/static/css/main.073c9b0a.css.map",
+    "main.cd9aa08e.js.map": "/split-wizard/static/js/main.cd9aa08e.js.map",
+    "787.7c74c654.chunk.js.map": "/split-wizard/static/js/787.7c74c654.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.cd9aa08e.js"
+  ]
+}
