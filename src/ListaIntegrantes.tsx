@@ -1,29 +1,9 @@
+import { Button, Container, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 import "./App.css";
 import { calcular, Deudor, IntegranteDelGrupo } from "./Logica";
 
 function ListaIntegrantes() {
-  const estilos = {
-    contenedor: {
-      margin: "1em",
-      border: "solid 1px #333",
-      borderRadius: "5px",
-      padding: "2em",
-    },
-    input: {
-      padding: "10px",
-      border: "solid 1px #555",
-    },
-    boton: {
-      border: "solid 1px #555",
-      borderRadius: "5px",
-      padding: "10px",
-      marginLeft: "10px",
-      // color: '#eee',
-      backgroundColor: "#eda726",
-    },
-  };
-
   const [lista, setLista] = useState<IntegranteDelGrupo[]>([]);
   const [nombre, setNombre] = useState("");
   const [plataQuePuso, setPlataQuePuso] = useState(0);
@@ -40,60 +20,72 @@ function ListaIntegrantes() {
   };
 
   return (
-    <div style={estilos.contenedor}>
-      <div>
+    <Container maxWidth="sm">
+      <Grid container spacing={1}>
         {lista.map((integrante) => (
-          <div>
+          <Grid item xs={12}>
             <span style={{ marginRight: 10 }}>
               {integrante.nombre}
             </span>
             <span>
               {integrante.plataQuePuso}
             </span>
-          </div>
+          </Grid>
         ))}
-      </div>
-      <div>
-        <div style={{ marginTop: "1em", marginBottom: "1em" }}>
-          <input
-            style={estilos.input}
-            type="text"
+      </Grid>
+      <Grid container spacing={2} mt={1}>
+        <Grid item xs={4}>
+          <TextField
+            id="filled-basic"
+            label="Nombre"
+            variant="filled"
             value={nombre}
             onChange={(event) => setNombre(event.target.value)}
-            placeholder="Nombre. Ej: Gandalf"
+            size="small"
           />
-          <input
-            style={estilos.input}
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            id="filled-basic"
+            label="Cuánto puso"
+            variant="filled"
             type="number"
             value={plataQuePuso}
             onChange={(event) => setPlataQuePuso(parseInt(event.target.value, 10))}
-            placeholder="Cuánto puso. Ej: 236"
+            size="small"
           />
-          <button
-            type="button"
-            style={estilos.boton}
+        </Grid>
+        <Grid item xs={4}>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "purple" }}
             onClick={() => agregarIntegrante()}
           >
             Agregar
-          </button>
-        </div>
-        <button
-          type="button"
-          style={estilos.boton}
-          onClick={() => calcularLaRepartija()}
-        >
-          Hacer la repartija
-        </button>
-        <div>
-          {deudores.map((deudor) => (
-            <div>
-              {deudor.aQuienesLeDebe.map((acreedor) => (
-                <div>{`${deudor.nombre} le debe a ${acreedor.nombre} $${acreedor.cuantoTieneQueCobrar}`}</div>))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item xs={12} mt={2} mb={2}>
+          <Button
+            style={{ backgroundColor: "purple" }}
+            onClick={() => calcularLaRepartija()}
+            variant="contained"
+          >
+            Hacer la repartija
+
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        {deudores.map((deudor) => (
+          <Grid item xs={12}>
+            {deudor.aQuienesLeDebe.map((acreedor) => (
+              <div>{`${deudor.nombre} le debe a ${acreedor.nombre} $${acreedor.cuantoTieneQueCobrar}`}</div>))}
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 }
 
