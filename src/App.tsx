@@ -1,3 +1,4 @@
+// import Button from "@mui/material/Button";
 import ListaIntegrantes from "./ListaIntegrantes";
 import "./App.css";
 
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <div style={estilos.contenedor}>
+      {/* <Button variant="contained">Hello World</Button> */}
       <h1 style={estilos.titulo}>El mago de la repartija</h1>
       <ListaIntegrantes />
     </div>
