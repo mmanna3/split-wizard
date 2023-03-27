@@ -82,6 +82,7 @@ function ListaIntegrantes() {
           <Grid item xs={12}>
             {deudor.aQuienesLeDebe.map((acreedor) => (
               <div>{`${deudor.nombre} le debe a ${acreedor.nombre} $${acreedor.cuantoTieneQueCobrar}`}</div>))}
+
           </Grid>
         ))}
       </Grid>
